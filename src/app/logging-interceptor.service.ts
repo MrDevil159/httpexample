@@ -11,7 +11,6 @@ export class LoggingInterceptorService implements HttpInterceptor {
                     if(event.type === HttpEventType.Response) {
                         console.log("Logging Incoming Response: ");
                         console.log(event.body);
-                        
                     }
                 })
             )
