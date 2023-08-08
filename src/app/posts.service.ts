@@ -11,6 +11,8 @@ import { Subject, catchError, map, tap, throwError } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class PostsService {
   error = new Subject<string>();
+  postNew = new Subject<any>();
+
   constructor(private http: HttpClient) {}
   createAndStorePost(title: string, content: string) {
     const postData: Post = {
@@ -26,7 +28,10 @@ export class PostsService {
         }
       )
       .subscribe({
-        next: (res) => console.log(res),
+        next: (res) => {
+          console.log(res);
+          this.postNew.next(res);
+        },
         error: (err) => this.error.next(err.message),
       });
   }
@@ -48,7 +53,7 @@ export class PostsService {
               postArray.push({ ...responseData[key], id: key });
             }
           }
-          return postArray;
+          return postArray.reverse();
         }),
         catchError((errorRes) => {
           // send to analytics server, behind the scenes to catch error,

@@ -34,7 +34,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onCreatePost(postData: { title: string; content: string }) {
-    this.postsService.createAndStorePost(postData.title, postData.content)
+    this.postsService.createAndStorePost(postData.title, postData.content);
+    this.postsService.postNew.subscribe(
+      (response)=> {
+        this.onFetchPosts();
+      }
+    )
   }
 
   onFetchPosts() {
