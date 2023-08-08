@@ -9,7 +9,9 @@ export class LoggingInterceptorService implements HttpInterceptor {
             tap(
                 (event => {
                     if(event.type === HttpEventType.Response) {
-                        console.log("Logging Incoming Response: " + event.body);
+                        console.log("Logging Incoming Response: ");
+                        console.log(event.body);
+                        
                     }
                 })
             )
